@@ -7,13 +7,10 @@ import { auth } from "./lib/auth";
 import { sentry } from "elysiajs-sentry";
 
 const app = new Elysia()
+	.use(sentry())
 	.mount(auth.handler)
 	.use(openapi())
 	.use(betterAuthPlugin)
-	.use(sentry())
-	.get("/debug-sentry", () => {
-		throw new Error("Sentry Integration Test - " + new Date().toISOString());
-	})
 	.use(productModule)
 	.use(cartModule);
 // .listen(3000);
