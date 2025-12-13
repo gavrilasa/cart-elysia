@@ -4,13 +4,15 @@ import { cartModule } from "./modules/cart";
 import { productModule } from "./modules/product";
 import openapi from "@elysiajs/openapi";
 import { auth } from "./lib/auth";
+import { sentry } from "elysiajs-sentry";
 
 const app = new Elysia()
 	.mount(auth.handler)
 	.use(openapi())
 	.use(betterAuthPlugin)
 	.use(productModule)
-	.use(cartModule);
+	.use(cartModule)
+	.use(sentry());
 // .listen(3000);
 
 // console.log(
