@@ -10,9 +10,12 @@ const app = new Elysia()
 	.mount(auth.handler)
 	.use(openapi())
 	.use(betterAuthPlugin)
+	.use(sentry())
+	.get("/debug-sentry", () => {
+		throw new Error("Sentry Integration Test - " + new Date().toISOString());
+	})
 	.use(productModule)
-	.use(cartModule)
-	.use(sentry());
+	.use(cartModule);
 // .listen(3000);
 
 // console.log(
